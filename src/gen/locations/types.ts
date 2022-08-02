@@ -1,0 +1,22 @@
+export enum FloorTag {
+  MAINTENANCE,
+  INDUSTRIAL,
+  RESIDENTIAL,
+  COMMERCIAL,
+  GOVERNANCE,
+  CORPORATE,
+  BOUNDARY,
+  SERVICES,
+  OBSERVATORY,
+  BROADCAST,
+  TRANSPORT,
+  LOW,
+  HIGH,
+  PLUS
+}
+
+export enum Block {
+  A,
+  B,
+  C
+}

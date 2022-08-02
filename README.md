@@ -1,46 +1,39 @@
-# Getting Started with Create React App
+# arcgen
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+A collection of things to help randomly generate populate a cyberpunky megastructure.
 
-## Available Scripts
+The most important implementation detail in the random generation here is that it tries to enforce content stability independently of
+generation order. If you generate 15 rooms with one seed, you should get the same 15 rooms with the same seed, regardless of when or
+where you generate them. (As far as I am aware, this is still an issue in [Eigengrau's Generator](https://eigengrausgenerator.com) which, along with [Stars Without Number](https://www.drivethrurpg.com/product/226996/Stars-Without-Number-Revised-Edition), is the
+primary inspiration here.)
 
-In the project directory, you can run:
+Includes a partial dataset from [philipperemy/name-dataset](https://github.com/philipperemy/name-dataset), filtering out all names outside the top 500 per country.
 
-### `npm start`
+## To-do
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- text generation
+- character-organization mapping
+- personality traits, distinctive characteristics
+- family groups, relationships, kids
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Features
 
-### `npm test`
+### Groups & Organizations
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- types (e.g., corporation, criminal, religious, social)
+- SWN-style tags
+  - for groups (e.g., "violent", "wealthy", "local")
+  - for corps (e.g., "intel", "goods")
+  - for crime (.e.g, "drugs", "arms", "gambling")
+  - for ideologies (e.g., "theocratic", "neoliberal")
 
-### `npm run build`
+### Characters
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- physique, with height, weight and BMIs roughly approximating real-world data
+- ethnicity/country of origin
+- name, determined by ethnicity/immigrant generation
+- languages, with modified odds of multilinguality for 1-3 generation immigrants.
+- sexuality, again with approximated data
+- religious affiliations with denominations and sects (WIP)
+- RPG stats, for my RPG but D&D 5e-able without too much trouble
+  - stat-determined "role" (e.g., "muscle", "hacker", "medic")
