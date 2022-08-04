@@ -1,6 +1,8 @@
-import { T } from '../../components';
+import type { Person } from '../../gen/people';
+
+import { ShowIf, T } from '../../components';
 import { Generation } from '../../gen/origin';
-import { Physique, Person, Sexuality } from '../../gen/people';
+import { Physique } from '../../gen/people';
 
 interface PersonDataTableProps {
   data: Person;
@@ -10,12 +12,12 @@ export default function PersonDataTable(
   props: PersonDataTableProps
 ): JSX.Element {
   const person = props.data;
-  const { data, physique } = person;
+  const { data, physique, dob } = person;
   const height = Physique.getImperialHeight(physique.height);
   const weight = Physique.getImperialWeight(physique.weight);
 
   return (
-    <table className="table">
+    <table className="table small table-sm table-flush">
       <tbody>
         <tr>
           <th>Gender</th>
@@ -24,8 +26,7 @@ export default function PersonDataTable(
         <tr>
           <th>Date of Birth</th>
           <td>
-            {new Date(data.date_of_birth).toLocaleDateString()} (aged {data.age}
-            )
+            {dob.toLocaleDateString()} (aged {data.age})
           </td>
         </tr>
         <tr>
@@ -48,15 +49,17 @@ export default function PersonDataTable(
           <th>Languages</th>
           <td>{data.languages.map(T.language).join(', ')}</td>
         </tr>
-        <tr>
-          <th>Generation</th>
-          <td>
-            {Generation[data.gen]} / {T.country(data.country)}
-          </td>
-        </tr>
+        <ShowIf value={data.gen !== Generation.NONE}>
+          <tr>
+            <th>Generation</th>
+            <td>
+              {T.generation(data.gen)} / {T.country(data.country)}
+            </td>
+          </tr>
+        </ShowIf>
         <tr>
           <th>Sexuality</th>
-          <td>{Sexuality[data.sexuality]}</td>
+          <td>{T.sexuality(data.sexuality)}</td>
         </tr>
       </tbody>
     </table>

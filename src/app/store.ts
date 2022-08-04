@@ -1,4 +1,7 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import type { Action, ThunkAction } from '@reduxjs/toolkit';
+
+import { configureStore } from '@reduxjs/toolkit';
+
 import * as people from '../features/people';
 
 export const store = configureStore({

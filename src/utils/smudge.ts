@@ -1,5 +1,6 @@
+import type { RandomFn } from './rng';
+
 import { _ } from '../utils';
-import { RandomFn } from './rng';
 
 type Smudgeable = number[] | Record<string | number, number>;
 

@@ -5,7 +5,7 @@ export class DataStore<T> {
     return this._data[id] ?? null;
   }
 
-  public set(id: number, value: T) {
+  public set(id: number, value: T): void {
     this._data[id] = value;
   }
 }

@@ -1,11 +1,12 @@
-import { DATE } from '../';
-import { getSmudger } from '../../utils/smudge';
+import type { PersonData } from './types';
+
 import { Seeder } from '../../lib/Seeder';
 import { getBetween } from '../../utils/rng';
-import { PersonData } from './types';
-import { getGender, getSexuality } from './getGender';
+import { getSmudger } from '../../utils/smudge';
+import { DATE } from '../';
 import { getName } from '../names';
 import { getCultureData } from './getCultureData';
+import { getGender, getSexuality } from './getGender';
 
 // prettier-ignore
 const cohorts = [
@@ -19,7 +20,7 @@ const cohorts = [
   [120, 1]    
 ];
 
-const cohortTable = {
+const cohortTable: Record<number, number> = {
   14: 0.15, //   –15 = 15%
   18: 0.05, // 15–18 = 5%
   24: 0.1, // 19–24 = 10%
@@ -31,9 +32,10 @@ const cohortTable = {
 };
 
 export function getPersonData(
-  seeder: Seeder,
+  seed: string,
   data: Pick<PersonData, 'id' | 'age'>
 ): PersonData {
+  const seeder = new Seeder(seed);
   const age = Math.floor(data.age);
   const dob = DATE.minus({ years: data.age }).toString();
   const { country, languages, gen } = getCultureData(seeder);

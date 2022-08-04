@@ -1,6 +1,6 @@
 export { Country, names as countries } from './countries';
 export { Language, names as languages } from './languages';
-export { Origin, getCountryOrigin } from './origin';
+export { Region, getCountryRegion } from './regions';
 
 export enum Generation {
   NONE = 0,

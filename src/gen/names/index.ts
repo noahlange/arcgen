@@ -1,8 +1,8 @@
-import { Seeder } from '../../lib';
+import type { Seeder } from '../../lib';
+
+import { _, RNG } from '../../utils';
 import { Country } from '../origin';
 import { Gender } from '../people';
-import { RNG, _ } from '../../utils';
-
 import firstNames from './name_first.json';
 import lastNames from './name_last.json';
 
@@ -15,18 +15,17 @@ function getValidNames(
   names: Record<string, any>,
   country: Country,
   gender?: Gender
-) {
+): string[] {
   return _.keys(names)
     .filter(name => country in names[name].rank)
     .filter(name => {
-      if (!gender) {
+      const g = Gender[gender!];
+      const gendered = names[name].gender as Record<string, number>;
+      if (!gendered) {
         return true;
       }
-      const g = Gender[gender];
-      const gendered = names[name].gender as Record<string, number>;
       return g in gendered ? gendered[g] > 0.25 : false;
-    })
-    .map(name => names[name]);
+    });
 }
 
 export function getName(
@@ -37,12 +36,12 @@ export function getName(
   const { rng } = seeder.use('name');
   const aliased = aliases[country] ?? country;
 
-  let givenName = RNG.pick(
+  const givenName = RNG.pick(
     rng.quick,
     getValidNames(firstNames, aliased, gender)
   );
 
-  let surname = RNG.pick(rng.quick, getValidNames(lastNames, aliased));
+  const surname = RNG.pick(rng.quick, getValidNames(lastNames, aliased));
 
   return [givenName, surname];
 }

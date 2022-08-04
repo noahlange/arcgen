@@ -1,7 +1,9 @@
+import type { Seeder } from '../../lib/Seeder';
+import type { Group } from './types';
+
 import { DataStore, MetaStore } from '../../lib';
 import { _, RNG } from '../../utils';
-import { Seeder } from '../../lib/Seeder';
-import { Group, GroupTag, GroupType } from './types';
+import { GroupTag, GroupType } from './types';
 
 export function getGroups(seeder: Seeder): MetaStore<Group> {
   const store = new MetaStore({
@@ -11,7 +13,7 @@ export function getGroups(seeder: Seeder): MetaStore<Group> {
   });
 
   const s = seeder.use('groups');
-  const enumber = (key: string | number) => typeof key === 'number';
+  const enumber = (k: string | number): k is number => typeof k === 'number';
   const tags = _.values(GroupTag).filter(enumber);
   const types = _.values(GroupType).filter(enumber);
 

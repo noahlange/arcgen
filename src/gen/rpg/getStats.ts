@@ -1,9 +1,10 @@
-import { Seeder } from '../../lib';
+import type { Seeder } from '../../lib';
+import type { Language } from '../origin';
+import type { Stat } from './types';
+
 import { RNG } from '../../utils';
-import { Language } from '../origin';
-import { getTags } from '../physique/tags';
 import { Gender } from '../people/types';
-import { Stat } from './types';
+import { getTags } from '../physique/tags';
 
 function getRandomStats(seeder: Seeder): Record<Stat, number> {
   const { rng } = seeder.use('stats');

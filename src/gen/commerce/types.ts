@@ -1,4 +1,4 @@
-import { EntityId } from '@reduxjs/toolkit';
+import type { EntityId } from '@reduxjs/toolkit';
 
 // prettier-ignore
 export enum Service {

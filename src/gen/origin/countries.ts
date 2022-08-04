@@ -96,6 +96,7 @@ export enum Country {
   SE = 'SE',
   SG = 'SG',
   SI = 'SI',
+  SK = 'SK',
   SV = 'SV',
   SY = 'SY',
   TM = 'TM',
@@ -109,25 +110,8 @@ export enum Country {
 }
 
 /**
- * Additional languages that need to be added.
- * - azerbaijani
- * - bengali
+ * Additional languages that need to be added
  * - berber
- * - bulgarian
- * - estonian
- * - afar
- * - fijin
- * - georgian
- * - hungarian
- * - khmer
- * - kazakh
- * - lithuanian
- * - maltese
- * - dhivehi
- * - oshiwambo
- * - filipino
- * - slovene
- * - turkmen
  */
 export const names: Record<Country, string> = {
   [Country.AE]: 'United Arab Emirates',
@@ -226,10 +210,11 @@ export const names: Record<Country, string> = {
   [Country.SD]: 'Sudan',
   [Country.SE]: 'Sweden',
   [Country.SG]: 'Singapore',
-  [Country.SI]: 'Slovenia', // slovene
+  [Country.SI]: 'Slovenia',
+  [Country.SK]: 'Slovokia',
   [Country.SV]: 'El Salvador',
   [Country.SY]: 'Syria',
-  [Country.TM]: 'Turkmenistan', // turkmen
+  [Country.TM]: 'Turkmenistan',
   [Country.TN]: 'Tunisia',
   [Country.TR]: 'Turkey',
   [Country.TW]: 'Taiwan',

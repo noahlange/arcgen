@@ -1,4 +1,4 @@
-import {
+import type {
   EntityAdapter,
   EntityState,
   EntityStateAdapter,
@@ -14,6 +14,7 @@ type EntityReducers<E> = EntityStateAdapter<E> &
 export function getEntityReducers<E>(
   adapter: EntityAdapter<E>
 ): EntityStateAdapter<E> & SliceCaseReducers<EntityState<E>> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { getSelectors, selectId, sortComparer, getInitialState, ...rest } =
     adapter;
   return rest as EntityReducers<E>;

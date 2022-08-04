@@ -1,7 +1,8 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { getEntityReducers } from '../../app/utils';
-
 import type { PersonData } from '../../gen/people/types';
+
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+
+import { getEntityReducers } from '../../app/utils';
 
 const adapter = createEntityAdapter<PersonData>();
 

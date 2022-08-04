@@ -1,4 +1,5 @@
-import { Seeder } from '../../lib/Seeder';
+import type { Seeder } from '../../lib/Seeder';
+
 import { RNG } from '../../utils';
 import { Ideology } from './types';
 

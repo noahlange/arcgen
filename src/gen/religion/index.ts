@@ -1,6 +1,7 @@
-import { Seeder } from '../../lib';
-import { ChristianTag, JewishTag, ReligionTag } from './types';
-import { PersonData } from '../people/types';
+import type { Seeder } from '../../lib';
+import type { PersonData } from '../people/types';
+import type { ChristianTag, JewishTag, ReligionTag } from './types';
+
 import { getReligion, getSect } from './getReligion';
 
 export interface ReligionData {

@@ -1,16 +1,15 @@
+// prettier-ignore
 export enum Role {
-  MUSCLE,
-  HACKER,
-  SNEAK,
-  GADGE,
-  STITCH,
-  FACE,
-  BROKER,
-  CORPO,
-  MEDIA,
-  SMUGGLER,
-  COP,
-  RAT
+  MUSCLE    = 0,
+  HACKER    = 1,
+  SNEAK     = 2,
+  GADGE     = 3,
+  STITCH    = 4,
+  FACE      = 5,
+  BROKER    = 6,
+  CORPO     = 7,
+  MEDIA     = 8,
+  SMUGGLER  = 9
 }
 
 export enum Stat {

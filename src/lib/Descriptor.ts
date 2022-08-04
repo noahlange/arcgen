@@ -1,5 +1,5 @@
 export enum DescriptorType {
-  PHYSIQUE
+  PHYSIQUE = 0
 }
 
 export class Descriptor {

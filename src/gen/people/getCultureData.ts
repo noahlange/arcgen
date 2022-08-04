@@ -1,80 +1,71 @@
-import { Country, Origin, getCountryOrigin, Generation } from '../origin';
-import { Seeder } from '../../lib/Seeder';
-import { RNG, _ } from '../../utils';
-import { getCountryLanguage, Language } from '../origin/languages';
+import type { Seeder } from '../../lib/Seeder';
+
+import { _, RNG } from '../../utils';
+import { Country, Generation, getCountryRegion, Region } from '../origin';
+import {
+  getAuxiliaryLanguages,
+  getCountryLanguage,
+  getRegionalLanguages,
+  Language
+} from '../origin/languages';
 
 export interface CultureData {
   gen: Generation;
-  origin: Origin;
+  origin: Region;
   country: Country;
   languages: Language[];
 }
 
-const countryList = _.keys(Country)
-  .filter(key => !isFinite(+key))
-  .filter(val => val !== Country.US) as Country[];
+const countries = _.keys(Country).filter(c => c !== Country.US) as Country[];
+const auxLanguages = getAuxiliaryLanguages().filter(l => l !== Language.EN);
 
 export function getCultureData(seeder: Seeder): CultureData {
   const { rng } = seeder.use('culture');
 
-  let gen = Math.round(rng.quick() * 3);
-  gen = gen > Generation.THIRD ? Generation.NONE : gen;
+  const languages = [Language.EN];
+  const gen = Math.round(Math.max(0, 3 - rng.quick() * 5)) || Generation.NONE;
+  const country = RNG.pick(rng.quick, countries);
+  const origin = getCountryRegion(country);
+  const lang = getCountryLanguage(country) ?? Language.EN;
 
-  if (gen !== Generation.NONE) {
-    const languages: Language[] = [];
-    const country = RNG.pick(rng.quick, countryList);
-
-    if (country !== Country.US) {
-      const origin = getCountryOrigin(country);
-      const lang = getCountryLanguage(country) as Language | null;
-
-      if (origin && lang !== null) {
-        if (lang !== Language.EN) {
-          switch (gen) {
-            case Generation.FIRST: {
-              // @todo: determine if they get extra local languages
-              const speaksEn = rng.quick() > 0.625;
-              languages.push(lang);
-              if (speaksEn) {
-                languages.push(Language.EN);
-              }
-              break;
-            }
-            case Generation.SECOND: {
-              languages.push(Language.EN, lang);
-              break;
-            }
-            case Generation.THIRD: {
-              const isBilingual = rng.quick() < 0.375;
-              languages.push(Language.EN);
-              if (isBilingual) {
-                languages.push(lang);
-              }
-              break;
-            }
-            default: {
-              languages.push(Language.EN);
-              break;
-            }
-          }
-        } else {
-          languages.push(Language.EN);
-        }
-
-        return {
-          origin,
-          gen,
-          country,
-          languages: Array.from(new Set(languages))
-        };
+  switch (gen) {
+    case Generation.NONE: {
+      const isBilingual = rng.quick() < 0.25;
+      if (isBilingual) {
+        languages.push(RNG.pick(seeder.rng, auxLanguages));
       }
+      break;
+    }
+    case Generation.FIRST: {
+      languages.push(lang);
+      const speaksEn = rng.quick() > 0.625;
+      if (!speaksEn) {
+        languages.shift();
+        // give them a regional language
+        if (origin) {
+          const regional = getRegionalLanguages(origin);
+          languages.push(RNG.pick(seeder.rng, regional));
+        }
+      }
+      break;
+    }
+    case Generation.SECOND: {
+      languages.push(lang);
+      break;
+    }
+    case Generation.THIRD: {
+      const isBilingual = rng.quick() < 0.375;
+      if (isBilingual) {
+        languages.push(lang);
+      }
+      break;
     }
   }
 
   return {
-    origin: Origin.AMERICA_NORTH,
+    origin: origin ?? Region.AMERICA_NORTH,
     gen,
-    country: Country.US,
+    country,
     languages: [Language.EN]
   };
 }

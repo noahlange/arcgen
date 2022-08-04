@@ -1,6 +1,6 @@
+import { roll } from '@airjp73/dice-notation';
 import { customRandom, urlAlphabet } from 'nanoid';
 import seedrandom from 'seedrandom';
-import { roll } from '@airjp73/dice-notation';
 
 export type RandomFn = () => number;
 
@@ -30,8 +30,13 @@ export function pick<T>(
     : array[Math.floor(fn() * array.length)];
 }
 
-export function getNormalRNG(rng: RandomFn) {
-  const normal = (rounds: number = 6) => {
+interface NormalRNG {
+  (): number;
+  skew(min: number, max: number, skew?: number, rounds?: number): number;
+}
+
+export function getNormalRNG(rng: RandomFn): NormalRNG {
+  const normal = (rounds: number = 6): number => {
     let sum = 0;
     for (let i = 0; i < rounds; i++) {
       sum += rng();
@@ -41,10 +46,15 @@ export function getNormalRNG(rng: RandomFn) {
 
   /**
    * Return a normally-distributed value from min to max, shifted up or down on
-   * a curve. Optionally with a number of random iterations for a flatter (<3) or
-   * more bell-ish curve (3+).
+   * a curve. Optionally with a number of random iterations for a flatter (<3)
+   * or more bell-ish curve (3+).
    */
-  function skew(min: number, max: number, skew: number = 1, rounds?: number) {
+  function skew(
+    min: number,
+    max: number,
+    skew: number = 1,
+    rounds?: number
+  ): number {
     let num = normal(rounds);
     num = Math.pow(num, skew); // Skew
     num *= max - min; // Stretch to fill range

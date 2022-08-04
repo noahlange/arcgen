@@ -1,6 +1,7 @@
-import { Seeder } from '../../lib';
-import { RNG, _ } from '../../utils';
-import { Stat, Role } from './types';
+import type { Seeder } from '../../lib';
+
+import { _, RNG } from '../../utils';
+import { Role, Stat } from './types';
 
 const arr = [
   Role.MUSCLE,
@@ -25,9 +26,7 @@ export const roles: Record<Role, string> = {
   [Role.BROKER]: 'Broker',
   [Role.CORPO]: 'Corpo',
   [Role.MEDIA]: 'Media',
-  [Role.SMUGGLER]: 'Smuggler',
-  [Role.COP]: 'Cop',
-  [Role.RAT]: 'Rat'
+  [Role.SMUGGLER]: 'Smuggler'
 };
 
 const preferred = {
@@ -70,5 +69,5 @@ export function getRole(seeder: Seeder, stats: Record<Stat, number>): Role {
     options.delete(Role.FACE);
   }
 
-  return RNG.pick(rng, Array.from(options));
+  return RNG.pick(rng, options.size ? Array.from(options) : arr);
 }

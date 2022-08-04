@@ -1,14 +1,21 @@
+import type { PhysiqueData } from '../physique';
+import type { RPGData } from '../rpg';
+import type { Gender, PersonData } from './types';
+
 import { Seeder } from '../../lib';
-import { getPhysique, PhysiqueData } from '../physique';
-import { getRPG, RPGData } from '../rpg';
-import { PersonData, Gender } from './types';
+import { getPhysique } from '../physique';
+import { getRPG } from '../rpg';
 
 export class Person {
   public get dob(): Date {
     return new Date(this.data.date_of_birth);
   }
 
-  public get name() {
+  public get seed(): string {
+    return this.seeder.value;
+  }
+
+  public get name(): string {
     return this.data.name.join(' ');
   }
 

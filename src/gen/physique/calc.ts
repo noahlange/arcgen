@@ -1,8 +1,9 @@
-import { Seeder } from '../../lib/Seeder';
+import type { Seeder } from '../../lib/Seeder';
+
 import { Gender } from '../people/types';
 
 const heights = {
-  [Gender.M]: [165, 210, 1.5],
+  [Gender.M]: [165, 210, 1.75],
   [Gender.F]: [155, 200, 1.75]
 };
 
@@ -16,13 +17,17 @@ const idealBodyWeight = {
   [Gender.F]: (cm: number) => 46 + 0.9 * cm - 152
 };
 
-export function getHeight(seeder: Seeder, gender: Gender) {
+export function getHeight(seeder: Seeder, gender: Gender): number {
   const { normal } = seeder.use('height');
   const [min, max, skew] = heights[gender];
   return Math.round(normal.skew(min - 5, max + 5, skew, 3));
 }
 
-export function getWeight(seeder: Seeder, gender: Gender, height: number) {
+export function getWeight(
+  seeder: Seeder,
+  gender: Gender,
+  height: number
+): number {
   const { normal } = seeder.use('weight');
   const ideal = idealBodyWeight[gender](height);
   const [min, max, skew] = weights[gender];

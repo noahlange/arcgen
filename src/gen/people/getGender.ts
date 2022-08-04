@@ -1,4 +1,5 @@
-import { Seeder } from '../../lib/Seeder';
+import type { Seeder } from '../../lib/Seeder';
+
 import { percentTable } from '../../utils';
 import { Gender, Sexuality } from './types';
 

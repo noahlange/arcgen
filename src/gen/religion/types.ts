@@ -1,31 +1,34 @@
-import { Group } from '../groups/types';
+import type { Group } from '../groups/types';
 
+// prettier-ignore
 export enum ReligionTag {
-  NONE, // e.g., non-practicing
-  CHRISTIAN,
-  JEWISH,
-  ISLAMIC,
-  BUDDHIST,
-  HINDU,
-  SIKH,
-  FOLK // e.g., neo-paganism, syncretics
+  NONE      = 0, // e.g., non-practicing
+  CHRISTIAN = 1,
+  JEWISH    = 2,
+  ISLAMIC   = 3,
+  BUDDHIST  = 4,
+  HINDU     = 5,
+  SIKH      = 6,
+  FOLK      = 7 // e.g., neo-paganism, syncretics
 }
 
+// prettier-ignore
 export enum ChristianTag {
-  ORTHODOX,
-  MAINLINE,
-  CATHOLIC,
-  CHARISMATIC,
-  FUNDIE,
-  EVANGELICAL,
-  NONTRINITARIAN // e.g. LDS, Jehovah's Witnesses
+  ORTHODOX        = 0,  // e.g., Eastern Orthodox, Oriental Orthodox
+  MAINLINE        = 1,  // e.g,, Lutheran, Anglican
+  CATHOLIC        = 2,  // e.g., Roman Catholics
+  CHARISMATIC     = 3,  // e.g., Pentecostals
+  FUNDIE          = 4,  // e.g., independent baptists
+  EVANGELICAL     = 5,  // e.g., SBC
+  NONTRINITARIAN  = 6 // e.g. LDS, Jehovah's Witnesses
 }
 
+// prettier-ignore
 export enum JewishTag {
-  REFORM,
-  ORTHODOX,
-  HASIDIC,
-  CONSERVATIVE
+  REFORM        = 0,
+  ORTHODOX      = 1,
+  HASIDIC       = 2,
+  CONSERVATIVE  = 3
 }
 
 export interface Religion extends Group {

@@ -1,4 +1,7 @@
-import seedrandom, { PRNG } from 'seedrandom';
+import type { PRNG } from 'seedrandom';
+
+import seedrandom from 'seedrandom';
+
 import { getNormalRNG } from '../utils/rng';
 
 export class Seeder {
@@ -16,7 +19,7 @@ export class Seeder {
     return new Seeder(this.value + '.' + value);
   }
 
-  constructor(text: string) {
+  public constructor(text: string) {
     this.value = text;
     this.rng = seedrandom(text);
     this.normal = getNormalRNG(this.rng);

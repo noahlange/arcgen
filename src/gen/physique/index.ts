@@ -1,7 +1,9 @@
-import { Seeder } from '../../lib';
-import { PersonData } from '../people';
-import { PhysiqueTags, getTags } from './tags';
-import { getWeight, getHeight, getBMI } from './calc';
+import type { Seeder } from '../../lib';
+import type { PersonData } from '../people';
+import type { PhysiqueTags } from './tags';
+
+import { getBMI, getHeight, getWeight } from './calc';
+import { getTags } from './tags';
 
 export interface PhysiqueData {
   height: number;

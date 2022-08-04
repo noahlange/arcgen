@@ -1,5 +1,6 @@
+import type { DataStore } from './DataStore';
+
 import { _ } from '../utils';
-import { DataStore } from './DataStore';
 
 type Stores<T> = {
   [K in keyof T]: DataStore<T[K]>;
@@ -33,7 +34,7 @@ export class MetaStore<T> {
     return null;
   }
 
-  *[Symbol.iterator](): IterableIterator<T> {
+  public *[Symbol.iterator](): IterableIterator<T> {
     for (const id of this.ids) {
       yield this.get(id) as T;
     }

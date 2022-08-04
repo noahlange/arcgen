@@ -1,26 +1,28 @@
-import { ChangeEvent, useMemo, useState } from 'react';
+import type { ChangeEvent } from 'react';
 
 import './App.css';
 
+import { useMemo, useState } from 'react';
 import { Provider } from 'react-redux';
 
 import { store } from './app/store';
-import { Person, getPersonData } from './gen/people';
 import { PersonView } from './features/people/PersonView';
+import { getPersonData, Person } from './gen/people';
 import { Seeder } from './lib';
 import { RNG } from './utils';
 
 const DEFAULT_SEED = () => Math.round(Math.random() * 1000);
 
-export default function App() {
-  const [seed, setSeed] = useState(DEFAULT_SEED());
-  const seeder = useMemo(() => new Seeder(seed.toString()), [seed]);
-  const getBetween = useMemo(() => RNG.getBetween(seeder.rng), [seeder]);
+const DEFAULT_SEED = (): number => Math.round(Math.random() * 1000);
 
-  const person = useMemo(
-    () => new Person(getPersonData(seeder, { id: 1, age: getBetween(20, 30) })),
-    [seeder, getBetween]
-  );
+export default function App(): JSX.Element {
+  const [seed, setSeed] = useState(DEFAULT_SEED());
+
+  const person = useMemo(() => {
+    const seeder = new Seeder(seed.toString());
+    const age = RNG.getBetween(seeder.rng)(20, 30);
+    return new Person(getPersonData(seed.toString(), { id: 1, age }));
+  }, [seed]);
 
   const handle = {
     onRandom: () => setSeed(DEFAULT_SEED()),

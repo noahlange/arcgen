@@ -1,5 +1,5 @@
-import { ChristianTag, ReligionTag } from '../religion';
 import { Country, Language } from '../origin';
+import { ChristianTag, ReligionTag } from '../religion';
 
 export const religions: {
   [key in Country]?: Partial<Record<ReligionTag, number>>;

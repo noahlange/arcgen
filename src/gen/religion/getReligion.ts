@@ -1,8 +1,8 @@
-import { Seeder } from '../../lib/Seeder';
+import type { Seeder } from '../../lib/Seeder';
+import type { Country } from '../origin';
+
 import { percentTable } from '../../utils';
 import { ChristianTag, JewishTag, ReligionTag } from '../religion';
-import { Country } from '../origin';
-
 import { religions } from './distribution';
 
 export function getReligion(seed: Seeder, country: Country): ReligionTag {

@@ -1,6 +1,7 @@
-import { Seeder } from '../../lib';
-import { PersonData } from '../people';
-import { PhysiqueData } from '../physique';
+import type { Seeder } from '../../lib';
+import type { PersonData } from '../people';
+import type { PhysiqueData } from '../physique';
+
 import { getRole } from './getRole';
 import { getStats } from './getStats';
 import { Role, Stat } from './types';

@@ -1,5 +1,5 @@
+import type { Country, Generation, Language } from '../origin';
 import type { EntityId } from '@reduxjs/toolkit';
-import { Country, Generation, Language } from '../origin';
 
 export enum Gender {
   M = 'M',
