@@ -1,10 +1,11 @@
-import type { Seeder } from '../../lib';
+import type { Generation } from '@/gen/origin';
+import type { Seeder } from '@/lib';
 
-import { _, RNG } from '../../utils';
-import { Country } from '../origin';
-import { Gender } from '../people';
-import firstNames from './name_first.json';
-import lastNames from './name_last.json';
+import firstNames from '@/data/name_first.json';
+import lastNames from '@/data/name_last.json';
+import { Country } from '@/gen/origin';
+import { Gender } from '@/gen/people';
+import { _, RNG } from '@/utils';
 
 const aliases: { [K in Country]?: Country } = {
   [Country.NZ]: Country.GB,
@@ -31,17 +32,20 @@ function getValidNames(
 export function getName(
   seeder: Seeder,
   gender: Gender,
+  gen: Generation,
   country: Country
 ): string[] {
   const { rng } = seeder.use('name');
-  const aliased = aliases[country] ?? country;
 
-  const givenName = RNG.pick(
-    rng.quick,
-    getValidNames(firstNames, aliased, gender)
-  );
+  const [first, last] = [rng.quick(), rng.quick()];
+  const useUSName = Math.max(0, gen - 1) * rng.quick() > 1;
+  const aliased = aliases[country] || country;
 
-  const surname = RNG.pick(rng.quick, getValidNames(lastNames, aliased));
-
-  return [givenName, surname];
+  return [
+    RNG.pick(
+      () => first,
+      getValidNames(firstNames, useUSName ? Country.US : aliased, gender)
+    ),
+    RNG.pick(() => last, getValidNames(lastNames, aliased))
+  ];
 }

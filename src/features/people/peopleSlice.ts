@@ -1,4 +1,4 @@
-import type { PersonData } from '../../gen/people/types';
+import type { PersonData } from '@/gen/people';
 
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 

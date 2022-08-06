@@ -1,6 +1,6 @@
 import type { Seeder } from '../../lib/Seeder';
 
-import { Gender } from '../people/types';
+import { Gender } from '../people';
 
 const heights = {
   [Gender.M]: [165, 210, 1.75],
@@ -8,8 +8,8 @@ const heights = {
 };
 
 const weights = {
-  [Gender.M]: [0.75, 3, 1.875],
-  [Gender.F]: [1, 2.75, 1.875]
+  [Gender.M]: [1, 3, 2.25],
+  [Gender.F]: [1, 2.75, 2.25]
 };
 
 const idealBodyWeight = {

@@ -1,6 +1,6 @@
-import type { Seeder } from '../../lib';
-import type { PersonData } from '../people/types';
+import type { PersonData } from '../people';
 import type { ChristianTag, JewishTag, ReligionTag } from './types';
+import type { Seeder } from '@/lib';
 
 import { getReligion, getSect } from './getReligion';
 

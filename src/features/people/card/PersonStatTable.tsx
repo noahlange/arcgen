@@ -1,4 +1,4 @@
-import type { Person } from '../../gen/people';
+import type { Person } from '@/gen/people';
 
 interface PersonDataTableProps {
   data: Person;
@@ -10,7 +10,7 @@ export default function PersonStatTable(
   const data = props.data.rpg.stats;
 
   return (
-    <table className="table  table-flush mb-3 text-center">
+    <table className="table table-sm table-flush mb-3 text-center">
       <thead>
         <tr>
           <th>DEX</th>

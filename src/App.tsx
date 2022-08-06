@@ -1,60 +1,34 @@
-import type { ChangeEvent } from 'react';
-
-import './App.css';
-
 import { useMemo, useState } from 'react';
-import { Provider } from 'react-redux';
+import { Container, Stack } from 'react-bootstrap';
 
-import { store } from './app/store';
-import { PersonView } from './features/people/PersonView';
-import { getPersonData, Person } from './gen/people';
-import { Seeder } from './lib';
-import { RNG } from './utils';
+import { getPersonData, Person } from '@/gen/people';
 
-const DEFAULT_SEED = () => Math.round(Math.random() * 1000);
-
-const DEFAULT_SEED = (): number => Math.round(Math.random() * 1000);
+import { Paginator } from './components/Paginator';
+import { PeopleTable } from './features/people';
 
 export default function App(): JSX.Element {
-  const [seed, setSeed] = useState(DEFAULT_SEED());
+  const [start, setStart] = useState(0);
 
-  const person = useMemo(() => {
-    const seeder = new Seeder(seed.toString());
-    const age = RNG.getBetween(seeder.rng)(20, 30);
-    return new Person(getPersonData(seed.toString(), { id: 1, age }));
-  }, [seed]);
-
-  const handle = {
-    onRandom: () => setSeed(DEFAULT_SEED()),
-    onChange: (e: ChangeEvent<HTMLInputElement>) => setSeed(+e.target.value)
-  };
+  const people = useMemo(
+    () =>
+      Array.from('0000000000', (_, i) => {
+        const seed = (start + i).toString();
+        return new Person(getPersonData(seed, { id: seed, age: 25 }));
+      }),
+    [start]
+  );
 
   return (
-    <Provider store={store}>
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col mb-3">
-            <div className="input-group ms-auto">
-              <input
-                className="form-control"
-                type="text"
-                value={seed}
-                onChange={handle.onChange}
-              />
-              <button
-                className="btn btn-primary"
-                type="button"
-                onClick={handle.onRandom}
-              >
-                Random ({seed})
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="container">
-        <PersonView data={person} />
-      </div>
-    </Provider>
+    <div className="my-4">
+      <Container>
+        <PeopleTable data={people} />
+        <Stack>
+          <Paginator
+            onPageChange={page => setStart(page.selected * 10)}
+            pageCount={100}
+          />
+        </Stack>
+      </Container>
+    </div>
   );
 }

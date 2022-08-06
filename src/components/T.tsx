@@ -1,9 +1,9 @@
-import type { Country, Language } from '../gen/origin';
-import type { Role } from '../gen/rpg';
+import type { Country, Language } from '@/gen/origin';
+import type { Role } from '@/gen/rpg';
 
-import { countries, Generation, languages } from '../gen/origin';
-import { Gender, Sexuality } from '../gen/people';
-import { roles } from '../gen/rpg';
+import { countries, Generation, languages } from '@/gen/origin';
+import { Gender, Sexuality } from '@/gen/people';
+import { roles } from '@/gen/rpg';
 
 export const T = {
   country(value: Country): string {

@@ -1,31 +1,18 @@
-import type { Seeder } from '../../lib';
-import type { Language } from '../origin';
+import type { Country, Generation, Language } from '../origin';
 import type { Stat } from './types';
+import type { Seeder } from '@/lib';
 
-import { RNG } from '../../utils';
-import { Gender } from '../people/types';
+import { Gender } from '../people';
 import { getTags } from '../physique/tags';
-
-function getRandomStats(seeder: Seeder): Record<Stat, number> {
-  const { rng } = seeder.use('stats');
-  const roll = RNG.getRoller(rng.quick);
-  const stats = Array.from('000000', () => roll('3d4-2'));
-
-  return {
-    DEX: stats[0],
-    AGI: stats[1],
-    CON: stats[2],
-    INT: stats[3],
-    PER: stats[4],
-    CHA: stats[5]
-  };
-}
+import { getIQMod, getRandomStats } from './utils';
 
 interface GetStatsData {
   age: number;
   gender: Gender;
   weight: number;
   height: number;
+  country: Country;
+  gen: Generation;
   languages: Language[];
 }
 
@@ -40,6 +27,7 @@ export function getStats(
   const tags = getTags(data.gender, data.height, data.weight);
 
   base.INT += Math.max(0, data.languages.length - 1);
+  base.INT = Math.round(base.INT * getIQMod(data.country, data.gen));
 
   if (Math.abs(tags.weight) >= 2) {
     const mod = tags.weight;
@@ -47,8 +35,9 @@ export function getStats(
     base.AGI -= mod;
   }
 
-  if (tags.weight < 0) {
-    base.CON -= Math.ceil(tags.weight / 2);
+  if (tags.weight < 0 || tags.height < 0) {
+    // apologies, short/lightweight people
+    base.CON += Math.round((tags.weight + tags.height) / 4);
   }
 
   switch (data.gender) {

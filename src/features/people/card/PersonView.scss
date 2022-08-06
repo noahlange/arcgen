@@ -1,0 +1,41 @@
+.seed {
+  user-select: none;
+  font-size: 75%;
+  opacity: 0.75;
+}
+
+.card .table-flush {
+  margin-bottom: 0;
+}
+
+.table-flush {
+  border-radius: 0px;
+  border-bottom-width: 0;
+}
+
+.table-flush:last-child {
+  thead,
+  tbody {
+    :last-child * {
+      border: none;
+    }
+  }
+}
+
+.person-view {
+  padding: 24px;
+  background: transparent;
+
+  --aug-border: initial;
+  --aug-inlay-all: 8px;
+  --aug-border-all: 8px;
+  --aug-inlay: initial;
+
+  --aug-clip-br1: initial;
+  --aug-br1: 24px;
+
+  --aug-inlay-opacity: 0.75;
+  --aug-border-bg: url('/bg.jpg') 50% 75% / cover no-repeat;
+
+  --aug-inlay-bg: white;
+}

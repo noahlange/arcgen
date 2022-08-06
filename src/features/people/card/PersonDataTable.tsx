@@ -1,8 +1,8 @@
-import type { Person } from '../../gen/people';
+import type { Person } from '@/gen/people';
 
-import { ShowIf, T } from '../../components';
-import { Generation } from '../../gen/origin';
-import { Physique } from '../../gen/people';
+import { ShowIf, T } from '@/components';
+import { Generation } from '@/gen/origin';
+import { getImperialHeight, getImperialWeight } from '@/gen/physique';
 
 interface PersonDataTableProps {
   data: Person;
@@ -13,11 +13,11 @@ export default function PersonDataTable(
 ): JSX.Element {
   const person = props.data;
   const { data, physique, dob } = person;
-  const height = Physique.getImperialHeight(physique.height);
-  const weight = Physique.getImperialWeight(physique.weight);
+  const height = getImperialHeight(physique.height);
+  const weight = getImperialWeight(physique.weight);
 
   return (
-    <table className="table small table-sm table-flush">
+    <table className="table small table-sm table-flush mb-0">
       <tbody>
         <tr>
           <th>Gender</th>

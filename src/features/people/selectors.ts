@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { Person } from '../../gen/people/Person';
+import { Person } from '@/gen/people';
+
 import { selectors } from './peopleSlice';
 
 export const selectAll = createSelector(selectors.selectAll, people =>

@@ -1,4 +1,5 @@
-import { Gender } from '../people/types';
+import { Gender } from '@/gen/people';
+
 import { getBMI } from './calc';
 
 export interface PhysiqueTags {
@@ -27,7 +28,7 @@ const thresholds = {
   bmi: [15, 16, 17, 18, 22.5, 25, 27.5, 35, 40, 45, 100],
   height: {
     [Gender.M]: [160, 163, 166, 170, 175, 182, 190, 195, 200, 205, 210],
-    [Gender.F]: [155, 157.5, 160, 162.5, 165, 170, 180, 185, 190, 195, 200]
+    [Gender.F]: [156, 168, 160, 162.5, 165, 170, 180, 185, 190, 195, 200]
   }
 };
 

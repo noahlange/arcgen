@@ -1,6 +1,6 @@
-import type { Person } from '../gen/people/Person';
+import type { Person } from '@/gen/people';
 
-import { Gender } from '../gen/people/types';
+import { Gender } from '@/gen/people';
 
 const thirdPerson: Record<Gender, string> = {
   [Gender.M]: 'he',
